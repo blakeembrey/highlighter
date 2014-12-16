@@ -1,0 +1,36 @@
+{
+  "name": "highlighter",
+  "version": "0.0.0",
+  "description": "Add syntax highlighting to all files, with built-in syntax highlighting of diffs and patches.",
+  "main": "highlighter.js",
+  "scripts": {
+    "test": "istanbul cover _mocha -- -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blakeembrey/highlighter.git"
+  },
+  "keywords": [
+    "syntax",
+    "highlight",
+    "highlighting",
+    "browser",
+    "highlight.js"
+  ],
+  "author": {
+    "name": "Blake Embrey",
+    "email": "hello@blakeembrey.com",
+    "url": "http://blakeembrey.me"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blakeembrey/highlighter/issues"
+  },
+  "homepage": "https://github.com/blakeembrey/highlighter",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "highlight.js": "^8.4.0",
+    "istanbul": "^0.3.5",
+    "mocha": "^2.0.1"
+  }
+}
