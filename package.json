@@ -1,6 +1,6 @@
 {
   "name": "highlighter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Add syntax highlighting to all files, with built-in syntax highlighting of diffs and patches.",
   "main": "highlighter.js",
   "scripts": {
