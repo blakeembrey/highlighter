@@ -29,8 +29,10 @@
   "homepage": "https://github.com/blakeembrey/highlighter",
   "devDependencies": {
     "chai": "^1.10.0",
-    "highlight.js": "^8.4.0",
     "istanbul": "^0.3.5",
     "mocha": "^2.0.1"
+  },
+  "dependencies": {
+    "highlight.js": "^8.4.0"
   }
 }
