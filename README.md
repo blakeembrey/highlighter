@@ -1,6 +1,7 @@
 # Highlighter
 
 [![NPM version][npm-image]][npm-url]
+[![NPM downloads][downloads-image]][downloads-url]
 [![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 
@@ -60,6 +61,8 @@ MIT
 
 [npm-image]: https://img.shields.io/npm/v/highlighter.svg?style=flat
 [npm-url]: https://npmjs.org/package/highlighter
+[downloads-image]: https://img.shields.io/npm/dm/highlighter.svg?style=flat
+[downloads-url]: https://npmjs.org/package/highlighter
 [travis-image]: https://img.shields.io/travis/blakeembrey/highlighter.svg?style=flat
 [travis-url]: https://travis-ci.org/blakeembrey/highlighter
 [coveralls-image]: https://img.shields.io/coveralls/blakeembrey/highlighter.svg?style=flat
