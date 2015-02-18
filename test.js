@@ -1,28 +1,29 @@
-var expect      = require('chai').expect;
-var highlighter = require('./');
+/* global describe, it */
+var expect = require('chai').expect
+var highlighter = require('./')
 
 describe('highlighter', function () {
   describe('no options', function () {
-    var highlight = highlighter();
+    var highlight = highlighter()
 
     describe('highlight', function () {
-      var snippet = 'var foo = "bar";';
+      var snippet = 'var foo = "bar";'
 
       it('should return code when no language is set', function () {
-        expect(highlight(snippet)).to.equal(snippet);
-      });
+        expect(highlight(snippet)).to.equal(snippet)
+      })
 
       it('should catch invalid highlight.js languages', function () {
-        expect(highlight(snippet, 'fakelang')).to.equal(snippet);
-      });
+        expect(highlight(snippet, 'fakelang')).to.equal(snippet)
+      })
 
       it('should do syntax highlighting', function () {
         expect(highlight(snippet, 'javascript')).to.equal(
           '<span class="hljs-keyword">var</span> ' +
           'foo = <span class="hljs-string">"bar"</span>;'
-        );
-      });
-    });
+        )
+      })
+    })
 
     describe('diff', function () {
       it('should support diff file suffixes', function () {
@@ -30,7 +31,7 @@ describe('highlighter', function () {
           ' var str = "test";',
           '-var foo = "bar";',
           '+var foo = 42;'
-        ].join('\n');
+        ].join('\n')
 
         expect(highlight(str, 'js.diff')).to.equal([
           '<span class="diff-null"><span class="hljs-keyword">var</span> ' +
@@ -39,8 +40,8 @@ describe('highlighter', function () {
             'foo = <span class="hljs-string">"bar"</span>;</span>',
           '<span class="diff-addition"><span class="hljs-keyword">var</span> ' +
             'foo = <span class="hljs-number">42</span>;</span>'
-        ].join('\n'));
-      });
+        ].join('\n'))
+      })
 
       it('should support syntax highlighting over splits', function () {
         var str = [
@@ -50,7 +51,7 @@ describe('highlighter', function () {
           '+    "build": "node build.js"',
           '   }',
           ' }'
-        ].join('\n');
+        ].join('\n')
 
         expect(highlight(str, 'json.diff')).to.equal([
           '<span class="diff-null">{',
@@ -66,8 +67,8 @@ describe('highlighter', function () {
           '<span class="diff-null"><span class="hljs-value">' +
             '<span class="hljs-value">  </span>}',
           '</span>}</span>'
-        ].join('\n'));
-      });
+        ].join('\n'))
+      })
 
       it('should match diff headers', function () {
         var str = [
@@ -75,30 +76,30 @@ describe('highlighter', function () {
           '===================================================================',
           '--- example.js    (revision 199)',
           '+++ example.js    (revision 200)'
-        ].join('\n');
+        ].join('\n')
 
         expect(highlight(str, '.diff')).to.equal([
           '<span class="diff-header">Index: example.js',
           '===================================================================',
           '--- example.js    (revision 199)',
           '+++ example.js    (revision 200)</span>'
-        ].join('\n'));
-      });
+        ].join('\n'))
+      })
 
       it('should match diff chunks', function () {
-        var str = '@@ -1,8 +1,7 @@';
+        var str = '@@ -1,8 +1,7 @@'
 
         expect(highlight(str, '.diff')).to.equal(
           '<span class="diff-chunk">@@ -1,8 +1,7 @@</span>'
-        );
-      });
+        )
+      })
 
       it('should match between over chunks', function () {
         var str = [
           'var foo = "bar";',
           '@@ -1,8 +1,7 @@',
           'var str = "test";'
-        ].join('\n');
+        ].join('\n')
 
         expect(highlight(str, 'js.diff')).to.equal([
           '<span class="diff-null"><span class="hljs-keyword">var</span> ' +
@@ -106,8 +107,8 @@ describe('highlighter', function () {
           '<span class="diff-chunk">@@ -1,8 +1,7 @@</span>',
           '<span class="diff-null"><span class="hljs-keyword">var</span> ' +
             'str = <span class="hljs-string">"test"</span>;</span>'
-        ].join('\n'));
-      });
-    });
-  });
-});
+        ].join('\n'))
+      })
+    })
+  })
+})

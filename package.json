@@ -4,7 +4,10 @@
   "description": "Add syntax highlighting to all files, with built-in syntax highlighting of diffs and patches.",
   "main": "highlighter.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- -R spec"
+    "lint": "standard",
+    "test-std": "mocha -- -R spec --bail",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec --bail",
+    "test": "npm run lint && npm run test-cov"
   },
   "repository": {
     "type": "git",
@@ -28,9 +31,11 @@
   },
   "homepage": "https://github.com/blakeembrey/highlighter",
   "devDependencies": {
-    "chai": "^1.10.0",
+    "chai": "^2.0.0",
     "istanbul": "^0.3.5",
-    "mocha": "^2.0.1"
+    "mocha": "^2.0.1",
+    "pre-commit": "^1.0.4",
+    "standard": "^2.6.3"
   },
   "dependencies": {
     "highlight.js": "^8.4.0"
