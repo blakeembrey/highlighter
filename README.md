@@ -20,7 +20,7 @@ var highlight = require('highlighter')();
 
 ### Basic Usage
 
-**Highlighter** can be used programmatically, by passsing in the source string and the source language.
+**Highlighter** can be used programmatically, by passing in the source string and the source language.
 
 ```js
 highlight('var foo = "bar";', 'javascript'); //=> '<span class="hljs-keyword">var</span> foo = <span class="hljs-string">"bar"</span>'
