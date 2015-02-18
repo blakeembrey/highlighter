@@ -3,6 +3,10 @@
   "version": "0.0.2",
   "description": "Add syntax highlighting to all files, with built-in syntax highlighting of diffs and patches.",
   "main": "highlighter.js",
+  "files": [
+    "highlighter.js",
+    "LICENSE"
+  ],
   "scripts": {
     "lint": "standard",
     "test-std": "mocha -- -R spec --bail",
