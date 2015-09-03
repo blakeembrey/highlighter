@@ -35,10 +35,10 @@ describe('highlighter', function () {
 
         expect(highlight(str, 'js.diff')).to.equal([
           '<span class="diff-null"><span class="hljs-keyword">var</span> ' +
-            'str = <span class="hljs-string">"test"</span>;</span>',
-          '<span class="diff-deletion"><span class="hljs-keyword">var</span> ' +
-            'foo = <span class="hljs-string">"bar"</span>;</span>',
-          '<span class="diff-addition"><span class="hljs-keyword">var</span> ' +
+            'str = <span class="hljs-string">"test"</span>;',
+          '</span><span class="diff-deletion"><span class="hljs-keyword">var</span> ' +
+            'foo = <span class="hljs-string">"bar"</span>;',
+          '</span><span class="diff-addition"><span class="hljs-keyword">var</span> ' +
             'foo = <span class="hljs-number">42</span>;</span>'
         ].join('\n'))
       })
@@ -59,12 +59,12 @@ describe('highlighter', function () {
             '<span class="hljs-value"><span class="hljs-string">' +
             '"example-blog"</span></span>,',
           '  "<span class="hljs-attribute">scripts</span>": ' +
-            '<span class="hljs-value">{</span></span>',
-          '<span class="diff-addition"><span class="hljs-value">    ' +
+            '<span class="hljs-value">{',
+          '</span></span><span class="diff-addition"><span class="hljs-value">    ' +
             '"<span class="hljs-attribute">build</span>": ' +
             '<span class="hljs-value"><span class="hljs-string">' +
-            '"node build.js"</span></span></span></span>',
-          '<span class="diff-null"><span class="hljs-value">' +
+            '"node build.js"</span>',
+          '</span></span></span><span class="diff-null"><span class="hljs-value">' +
             '<span class="hljs-value">  </span>}',
           '</span>}</span>'
         ].join('\n'))
@@ -103,10 +103,23 @@ describe('highlighter', function () {
 
         expect(highlight(str, 'js.diff')).to.equal([
           '<span class="diff-null"><span class="hljs-keyword">var</span> ' +
-            'foo = <span class="hljs-string">"bar"</span>;</span>',
-          '<span class="diff-chunk">@@ -1,8 +1,7 @@</span>',
-          '<span class="diff-null"><span class="hljs-keyword">var</span> ' +
+            'foo = <span class="hljs-string">"bar"</span>;',
+          '</span><span class="diff-chunk">@@ -1,8 +1,7 @@</span><span class="diff-null">',
+          '<span class="hljs-keyword">var</span> ' +
             'str = <span class="hljs-string">"test"</span>;</span>'
+        ].join('\n'))
+      })
+
+      it('should match between chunks on the same line', function () {
+        var str = [
+          'var foo = "bar";',
+          '@@ -1,8 +1,7 @@ var str = "test";'
+        ].join('\n')
+
+        expect(highlight(str, 'js.diff')).to.equal([
+          '<span class="diff-null"><span class="hljs-keyword">var</span> ' +
+            'foo = <span class="hljs-string">"bar"</span>;',
+          '</span><span class="diff-chunk">@@ -1,8 +1,7 @@ var str = "test";</span>'
         ].join('\n'))
       })
     })

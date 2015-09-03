@@ -1,15 +1,15 @@
 var hljs = require('highlight.js')
 
-var SEPARATOR = '\n'
+// [chunk, header, start, other]
+var DIFF_REGEXP = /(^\-{3} [^\-]+ \-{4}$|^\*{3} [^\*]+ \*{4}$|^@@ [^@]+ @@.*$)|(^Index\: |^[\+\-\*]{3}|^[\*\=]{5,}$)|(^[\+\-\! ])|([\s\S])/mgi
 
-var CHUNK_REGEXP = /^\-{3} [^\-]+ \-{4}$|^\*{3} [^\*]+ \*{4}$|^@@ [^@]+ @@$/
-var HEADER_REGEXP = /^Index\: |^[\+\-\*]{3}|^[\*\=]{5,}$/
-var DIFF_REGEXP = /\.(?:diff|patch)$/i
+var IS_DIFF_REGEXP = /\.(?:diff|patch)$/i
 
 var PATCH_TYPES = {
   '+': 'addition',
   '-': 'deletion',
-  '!': 'change'
+  '!': 'change',
+  ' ': 'null'
 }
 
 /**
@@ -51,10 +51,10 @@ function highlight (code, lang) {
     return code
   }
 
-  var isDiff = DIFF_REGEXP.test(lang)
+  var isDiff = IS_DIFF_REGEXP.test(lang)
 
   // Remove the diff suffix. E.g. "javascript.diff".
-  lang = lang.replace(DIFF_REGEXP, '')
+  lang = lang.replace(IS_DIFF_REGEXP, '')
 
   // Ignore unknown languages.
   if (!isDiff && !supported(lang)) {
@@ -73,42 +73,51 @@ function highlight (code, lang) {
  */
 function diff (code, lang) {
   var sections = []
+  var result
 
-  code.split(/\r?\n/g).forEach(function (line) {
+  while ((result = DIFF_REGEXP.exec(code))) {
+    var value = result[0]
     var type
-
-    if (CHUNK_REGEXP.test(line)) {
-      type = 'chunk'
-    } else if (HEADER_REGEXP.test(line)) {
-      type = 'header'
-    } else {
-      type = PATCH_TYPES[line[0]] || 'null'
-      line = line.replace(/^[\+\-\! ]/, '')
-    }
 
     // Merge data with the previous section where possible.
     var previous = sections[sections.length - 1]
 
+    if (result[1]) {
+      type = 'chunk'
+    } else if (result[2]) {
+      type = 'header'
+    } else if (result[3]) {
+      type = PATCH_TYPES[result[3]]
+      value = ''
+    } else {
+      type = previous ? previous.type : 'null'
+
+      // Chunks do not repeat after finished.
+      if (type === 'chunk') {
+        type = 'null'
+      }
+    }
+
     if (!previous || previous.type !== type) {
       sections.push({
         type: type,
-        lines: [line]
+        value: value
       })
 
-      return
+      continue
     }
 
-    previous.lines.push(line)
-  })
+    previous.value += value
+  }
 
   return highlightSections(sections, lang)
     .map(function (section) {
       var type = section.type
-      var value = section.lines.join(SEPARATOR)
+      var value = section.value
 
       return '<span class="diff-' + type + '">' + value + '</span>'
     })
-    .join(SEPARATOR)
+    .join('')
 }
 
 /**
@@ -138,7 +147,7 @@ function highlightSections (sections, lang) {
         return
       }
 
-      var value = section.lines.join(SEPARATOR)
+      var value = section.value
       var stack = type === 'deletion' ? deletionStack : additionStack
       var highlight = hljs.highlight(lang, value, false, stack)
 
@@ -151,7 +160,7 @@ function highlightSections (sections, lang) {
         additionStack = deletionStack = highlight.top
       }
 
-      section.lines = highlight.value.split(SEPARATOR)
+      section.value = highlight.value
     })
 
   return sections
