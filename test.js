@@ -55,18 +55,15 @@ describe('highlighter', function () {
 
         expect(highlight(str, 'json.diff')).to.equal([
           '<span class="diff-null">{',
-          '  "<span class="hljs-attribute">name</span>": ' +
-            '<span class="hljs-value"><span class="hljs-string">' +
-            '"example-blog"</span></span>,',
-          '  "<span class="hljs-attribute">scripts</span>": ' +
-            '<span class="hljs-value">{</span></span>',
-          '<span class="diff-addition"><span class="hljs-value">    ' +
-            '"<span class="hljs-attribute">build</span>": ' +
-            '<span class="hljs-value"><span class="hljs-string">' +
-            '"node build.js"</span></span></span></span>',
-          '<span class="diff-null"><span class="hljs-value">' +
-            '<span class="hljs-value">  </span>}',
-          '</span>}</span>'
+          '  <span class="hljs-attr">"name"</span>: ' +
+            '<span class="hljs-string">"example-blog"</span>,',
+          '  <span class="hljs-attr">"scripts"</span>: ' +
+            '{</span>',
+          '<span class="diff-addition">    ' +
+            '<span class="hljs-attr">"build"</span>: ' +
+            '<span class="hljs-string">"node build.js"</span></span>',
+          '<span class="diff-null">  }',
+          '}</span>'
         ].join('\n'))
       })
 
