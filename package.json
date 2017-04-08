@@ -39,7 +39,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
     "pre-commit": "^1.0.4",
-    "standard": "^8.4.0"
+    "standard": "^10.0.1"
   },
   "dependencies": {
     "highlight.js": "^9.7.0"

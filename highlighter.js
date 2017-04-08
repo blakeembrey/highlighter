@@ -2,8 +2,8 @@ var hljs = require('highlight.js')
 
 var SEPARATOR = '\n'
 
-var CHUNK_REGEXP = /^\-{3} [^\-]+ \-{4}$|^\*{3} [^\*]+ \*{4}$|^@@ [^@]+ @@$/
-var HEADER_REGEXP = /^Index: |^[\+\-\*]{3}|^[\*=]{5,}$/
+var CHUNK_REGEXP = /^-{3} [^-]+ -{4}$|^\*{3} [^*]+ \*{4}$|^@@ [^@]+ @@$/
+var HEADER_REGEXP = /^Index: |^[+\-*]{3}|^[*=]{5,}$/
 var DIFF_REGEXP = /\.(?:diff|patch)$/i
 
 var PATCH_TYPES = {
@@ -83,7 +83,7 @@ function diff (code, lang) {
       type = 'header'
     } else {
       type = PATCH_TYPES[line[0]] || 'null'
-      line = line.replace(/^[\+\-! ]/, '')
+      line = line.replace(/^[+\-! ]/, '')
     }
 
     // Merge data with the previous section where possible.
