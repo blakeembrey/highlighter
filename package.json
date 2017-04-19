@@ -42,6 +42,6 @@
     "standard": "^10.0.1"
   },
   "dependencies": {
-    "highlight.js": "^9.7.0"
+    "highlight.js": "^9.11.0"
   }
 }
