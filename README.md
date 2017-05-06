@@ -1,11 +1,10 @@
 # Highlighter
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/blakeembrey/highlighter.svg)](https://greenkeeper.io/)
-
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][downloads-image]][downloads-url]
 [![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
+[![Greenkeeper badge](https://badges.greenkeeper.io/blakeembrey/highlighter.svg)](https://greenkeeper.io/)
 
 **Highlighter** provides a simple way to add syntax highlighting to all files by using [highlight.js](https://github.com/isagalaev/highlight.js). Comes with built-in syntax highlighting for diffs and patches.
 
